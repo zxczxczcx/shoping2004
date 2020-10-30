@@ -23,7 +23,7 @@ class Cart extends Controller
 
             $key = 'goods_id:'.$goods_id;
             
-            //点击流量          
+            //点击量          
             
 
 

@@ -24,11 +24,16 @@ class Login extends Controller
      * 
      */
     public function login (){
+        //如果session中有值  ，这跳转个人中心
+        $user_id = session('user.user_id');
+        if($user_id){
+            return redirect('hindex');
+        }
 
         return view ('Index/login');
     }
 
-    //登录
+    //执行登录
     public function loginDo (Request $request){
         
         $account = $request->post('account');
@@ -58,7 +63,7 @@ class Login extends Controller
                     Redis::del($key);
                     $user = ['user_id'=>$account['user_id'],'user_name'=>$account['user_name']];
                     session(['user'=>$user]);
-                    return redirect ('/home');
+                    return redirect ('/');
                 }else{
                     $number = Redis::incr($key);
                     if($number>=1){

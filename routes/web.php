@@ -28,7 +28,7 @@ Route::prefix('/')->group(function(){
 
     Route::get('quit','Index\Login@quit');//退出
 
-    Route::get('home','Index\Index@index');    //首页
+    Route::get('/','Index\Index@index');    //首页
 
     Route::get('item','Index\Cart@item');//商品详情页
     Route::get('rand','Index\Cart@rand');//商品评论 
@@ -47,6 +47,12 @@ Route::prefix('/')->group(function(){
 
     Route::get('prize','Index\Prize@index');//抽奖
     Route::get('start','Index\Prize@start');//抽奖处理
+
+    
+    //个人中心
+    Route::get('hindex','Home\Home@index');//个人首页
+    Route::get('sign','Home\Home@sign');//签到
+
 
     
 
