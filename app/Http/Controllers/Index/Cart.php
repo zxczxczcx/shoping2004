@@ -162,10 +162,6 @@ class Cart extends Controller
 
 
         
-        
-
-
-        
         return view('index/cart',['goodsInfo'=>$goodsInfo,'new_goods'=>$gid]);
     }
 
