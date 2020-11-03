@@ -40,7 +40,7 @@ Route::prefix('/')->group(function(){
 
     Route::get('cart','Index\Cart@cart');//购物车视图
     Route::get('order','Index\Order@index');//下订单
-    Route::get('alibuy','Index\Order@alibuy');//支付
+    Route::get('alibuy','Index\PayController@alibuy');//支付
 
     Route::get('githublogin','Index\Login@githublogin');//github   第三方登录
 
@@ -51,18 +51,11 @@ Route::prefix('/')->group(function(){
     
     //个人中心
     Route::get('hindex','Home\Home@index');//个人首页
-    Route::get('sign','Home\Home@sign');//签到
+    Route::get('sign','Home\Home@sign')->middleware('CheckLogin');//签到
 
 
     
 
-
-
-
-    
-
-
-    //订单
 
 
 

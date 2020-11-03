@@ -80,6 +80,16 @@ class Cart extends Controller
         $id = $request->get('id');      //商品id
         $user_id = session('user.user_id');  //用户id
 
+        //查询当前用户的购物车是否达到20件商品
+        $count = CartModel::where('user_id',$user_id)->count();
+        if($count>=20){
+            $error = [
+                'error'=>500004,                    //商品已达到上限
+                'hint'=>'购物车已满，请先清理后再添加'                  //提示
+            ];
+            return json_encode($error);
+        }
+
         // dd($user_id);
         if(empty($user_id)){
             $error = [
@@ -129,9 +139,34 @@ class Cart extends Controller
         }
         // dd($goodsInfo);
 
+        //查询当前商品的分类下的最新商品z
+        $goods_id = [];
+        foreach($goodsInfo as $k=>$v){
+            $goods_id[] = $v['goods_id'];
+        }
+        $goods_id = array_unique($goods_id);        //购物车中所有商品的id
+
+        //得到分类id
+        $cid = [];
+        foreach($goods_id as $k=>$v){
+            $cid[] =  GoodsModel::where('goods_id',$v)->first('cat_id')->toArray();
+        }
+        // dd($cid);
+
+        //取出每个商品下的四个最新商品
+        $gid = [];
+        foreach($cid as $k=>$v){
+            $gid[] = GoodsModel::where('cat_id',$v['cat_id'])->orderBy('add_time','desc')->simplePaginate(4)->toArray();
+        }
+        // dd($gid);
+
+
         
         
-        return view('index/cart',['goodsInfo'=>$goodsInfo]);
+
+
+        
+        return view('index/cart',['goodsInfo'=>$goodsInfo,'new_goods'=>$gid]);
     }
 
     /**收藏  js*/

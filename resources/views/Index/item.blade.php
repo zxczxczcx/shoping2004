@@ -996,8 +996,9 @@ $(function(){
 			type:'get',
 			dataType:'json',
 			success:function(res){
-				
-				if(res.error==400001){
+				if(res.error==500004){
+					alert (res.hint)
+				}else if(res.error==400001){
 					alert(res.hint)
 					location.href="/login"
 				}else if(res.error==0){

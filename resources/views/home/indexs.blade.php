@@ -142,7 +142,10 @@ $(function(){
             url:"/sign",
             dataType:'json',
             success:function(res){
-                if(res.error==0){
+                if(res.error==400003){
+                    alert(res.msg)
+                    window.location.href='/login';
+                }else if(res.error==0){
                     alert(res.msg)
                 }
             }

@@ -63,6 +63,7 @@ class Login extends Controller
                     Redis::del($key);
                     $user = ['user_id'=>$account['user_id'],'user_name'=>$account['user_name']];
                     session(['user'=>$user]);
+                    
                     return redirect ('/');
                 }else{
                     $number = Redis::incr($key);
@@ -145,12 +146,7 @@ class Login extends Controller
         echo $email;
     }
 
-    /**
-     * 登录方式
-     */
-    public function github(){
-        
-    }
+    
 
     /**
      * github登录
