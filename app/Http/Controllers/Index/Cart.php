@@ -136,6 +136,7 @@ class Cart extends Controller
         $goodsInfo = [];
         foreach($goodsId as $k=>$v){
             $goodsInfo[] = GoodsModel::find($v['goods_id'])->toArray();
+            
         }
         // dd($goodsInfo);
 
